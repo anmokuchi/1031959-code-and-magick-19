@@ -28,15 +28,11 @@ window.renderStatistics = function(ctx) {
   ctx.fillText('Список результатов:', MESSAGE_X, MESSAGE_Y + 20);
 
   ctx.fillStyle = '#000';
-  ctx.fillText('Вы', STATS_X + (BAR_WIDTH + GAP) * 0, NAMES_Y);
-  ctx.fillRect(STATS_X + (BAR_WIDTH + GAP) * 0, STATS_Y, BAR_WIDTH, BAR_MAX_HEIGHT);
 
-  ctx.fillText('Кекс', STATS_X + (BAR_WIDTH + GAP) * 1, NAMES_Y);
-  ctx.fillRect(STATS_X + (BAR_WIDTH + GAP) * 1, STATS_Y, BAR_WIDTH, BAR_MAX_HEIGHT);
+  var players = ['Вы', 'Кекс', 'Катя', 'Игорь'];
 
-  ctx.fillText('Катя', STATS_X + (BAR_WIDTH + GAP) * 2, NAMES_Y);
-  ctx.fillRect(STATS_X + (BAR_WIDTH + GAP) * 2, STATS_Y, BAR_WIDTH, BAR_MAX_HEIGHT);
-
-  ctx.fillText('Игорь', STATS_X + (BAR_WIDTH + GAP) * 3, NAMES_Y);
-  ctx.fillRect(STATS_X + (BAR_WIDTH + GAP) * 3, STATS_Y, BAR_WIDTH, BAR_MAX_HEIGHT);
+  for (var i = 0; i < players.length; i++) {
+  ctx.fillText(players[i], STATS_X + (BAR_WIDTH + GAP) * i, NAMES_Y);
+  ctx.fillRect(STATS_X + (BAR_WIDTH + GAP) * i, STATS_Y, BAR_WIDTH, BAR_MAX_HEIGHT);
+  }
 };
