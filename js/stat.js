@@ -4,6 +4,8 @@ var CLOUD_WIDTH = 420;
 var CLOUD_HEIGHT = 270;
 var CLOUD_X = 100;
 var CLOUD_Y = 10;
+var MESSAGE_X = 120;
+var MESSAGE_Y = 40;
 var GAP = 50;
 var BAR_MAX_HEIGHT = 150;
 var BAR_WIDTH = 40;
@@ -22,15 +24,15 @@ window.renderStatistics = function(ctx) {
 
   ctx.fillStyle = '#000';
   ctx.font = '16px PT Mono';
-  ctx.fillText('Ура вы победили!', 120, 40);
-  ctx.fillText('Список результатов:', 120, 60);
+  ctx.fillText('Ура вы победили!', MESSAGE_X, MESSAGE_Y);
+  ctx.fillText('Список результатов:', MESSAGE_X, MESSAGE_Y + 20);
 
   ctx.fillStyle = '#000';
-  ctx.fillText('Вы', STATS_X, NAMES_Y);
-  ctx.fillRect(STATS_X, STATS_Y, BAR_WIDTH, BAR_MAX_HEIGHT);
+  ctx.fillText('Вы', STATS_X + (BAR_WIDTH + GAP) * 0, NAMES_Y);
+  ctx.fillRect(STATS_X + (BAR_WIDTH + GAP) * 0, STATS_Y, BAR_WIDTH, BAR_MAX_HEIGHT);
 
-  ctx.fillText('Кекс', STATS_X + BAR_WIDTH + GAP, NAMES_Y);
-  ctx.fillRect(STATS_X + BAR_WIDTH + GAP, STATS_Y, BAR_WIDTH, BAR_MAX_HEIGHT);
+  ctx.fillText('Кекс', STATS_X + (BAR_WIDTH + GAP) * 1, NAMES_Y);
+  ctx.fillRect(STATS_X + (BAR_WIDTH + GAP) * 1, STATS_Y, BAR_WIDTH, BAR_MAX_HEIGHT);
 
   ctx.fillText('Катя', STATS_X + (BAR_WIDTH + GAP) * 2, NAMES_Y);
   ctx.fillRect(STATS_X + (BAR_WIDTH + GAP) * 2, STATS_Y, BAR_WIDTH, BAR_MAX_HEIGHT);
