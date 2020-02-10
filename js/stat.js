@@ -39,8 +39,6 @@ window.renderStatistics = function(ctx, names, times) {
   ctx.fillText('Ура вы победили!', MESSAGE_X, MESSAGE_Y);
   ctx.fillText('Список результатов:', MESSAGE_X, MESSAGE_Y + 20);
 
-
-
   var maxTime = Math.round(getMaxElement(times));
 
   for (var i = 0; i < names.length; i++) {
@@ -51,6 +49,7 @@ window.renderStatistics = function(ctx, names, times) {
       }
   ctx.fillRect(STATS_X + (BAR_WIDTH + GAP) * i, NAMES_Y - NAMES_GAP - ((BAR_MAX_HEIGHT * times[i]) / maxTime), BAR_WIDTH, (BAR_MAX_HEIGHT * times[i]) / maxTime);
   ctx.fillStyle = '#000';
+  ctx.fillText(Math.round(times[i]), STATS_X + (BAR_WIDTH + GAP) * i, NAMES_Y - NAMES_GAP * 1.2 - ((BAR_MAX_HEIGHT * times[i]) / maxTime));
   ctx.fillText(names[i], STATS_X + (BAR_WIDTH + GAP) * i, NAMES_Y);
  }
 };
