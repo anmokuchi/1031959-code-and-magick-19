@@ -18,7 +18,7 @@ var renderCloud = function(ctx, x, y, color) {
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-window.renderStatistics = function(ctx) {
+window.renderStatistics = function(ctx, players) {
   renderCloud(ctx, 110, 20, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, 100, 10, '#fff');
 
@@ -28,8 +28,6 @@ window.renderStatistics = function(ctx) {
   ctx.fillText('Список результатов:', MESSAGE_X, MESSAGE_Y + 20);
 
   ctx.fillStyle = '#000';
-
-  var players = ['Вы', 'Кекс', 'Катя', 'Игорь'];
 
   for (var i = 0; i < players.length; i++) {
   ctx.fillText(players[i], STATS_X + (BAR_WIDTH + GAP) * i, NAMES_Y);
