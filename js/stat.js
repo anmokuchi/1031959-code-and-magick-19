@@ -45,9 +45,14 @@ window.renderStatistics = function (ctx, names, times) {
     } else {
       ctx.fillStyle = 'hsl(240, 100%, ' + Math.round(Math.random() * 100) + '%)';
     }
-    ctx.fillRect(STATS_X + (BAR_WIDTH + GAP) * i, NAMES_Y - NAMES_GAP - ((BAR_MAX_HEIGHT * times[i]) / maxTime), BAR_WIDTH, (BAR_MAX_HEIGHT * times[i]) / maxTime);
+
+    var barHeight = (BAR_MAX_HEIGHT * times[i]) / maxTime;
+    var statsPositionX = STATS_X + (BAR_WIDTH + GAP) * i;
+    var statsPositionY = NAMES_Y - NAMES_GAP - barHeight;
+
+    ctx.fillRect(statsPositionX, statsPositionY, BAR_WIDTH, barHeight);
     ctx.fillStyle = '#000';
-    ctx.fillText(Math.round(times[i]), STATS_X + (BAR_WIDTH + GAP) * i, NAMES_Y - NAMES_GAP * 1.2 - ((BAR_MAX_HEIGHT * times[i]) / maxTime));
-    ctx.fillText(names[i], STATS_X + (BAR_WIDTH + GAP) * i, NAMES_Y);
+    ctx.fillText(Math.round(times[i]), statsPositionX, statsPositionY - 5);
+    ctx.fillText(names[i], statsPositionX, NAMES_Y);
   }
 };
