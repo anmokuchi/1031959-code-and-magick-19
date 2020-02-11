@@ -1,7 +1,10 @@
 'use strict';
 
-var CLOUD_WIDTH = 420;
-var CLOUD_HEIGHT = 270;
+var cloud = {
+  'width': 420,
+  'height': 270
+};
+
 var MESSAGE_X = 120;
 var MESSAGE_Y = 40;
 var GAP = 50;
@@ -13,7 +16,7 @@ var NAMES_GAP = 20;
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
-  ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
+  ctx.fillRect(x, y, cloud.width, cloud.height);
 };
 
 var getMaxElement = function (arr) {
