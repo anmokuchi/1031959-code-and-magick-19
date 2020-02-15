@@ -8,7 +8,7 @@ var WIZARDS_AMOUNT = 4;
 
 // Функция нахождения рандомного элемента массива
 var getRandomArrayIndex = function (arrayName) {
-  return arrayName[Math.floor(Math.random()*arrayName.length)];
+  return arrayName[Math.floor(Math.random() * arrayName.length)];
 };
 
 // Показать окно настроек пользователя
