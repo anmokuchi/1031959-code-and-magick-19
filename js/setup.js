@@ -26,7 +26,7 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
   .content
   .querySelector('.setup-similar-item');
 
-// Собрать параметры магов
+// Собрать массив с параметрами магов
 var getWizards = function (wizardsAmount) {
   var wizards = [];
   for (var i = 0; i < wizardsAmount; i++) {
@@ -39,11 +39,10 @@ var getWizards = function (wizardsAmount) {
   return wizards;
 };
 
-// Цикл отрисовки шаблона
-for (var i = 0; i < 4; i++) {
+// Функция отрисовки магов на странице
+var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
-
-  wizardElement.querySelector('.setup-similar-label').textContent = WIZARD_NAMES[i];
-
-  similarListElement.appendChild(wizardElement);
-}
+  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
+  wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+  wizardElement.querySelector('.wizard-eyes');
+};
