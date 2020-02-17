@@ -7,8 +7,8 @@ var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var WIZARDS_AMOUNT = 4;
 
 // Функция нахождения рандомного элемента массива
-var getRandomArrayIndex = function (arrayName) {
-  return arrayName[Math.floor(Math.random() * arrayName.length)];
+var getRandomArrayElement = function (elements) {
+  return elements[Math.floor(Math.random() * elements.length)];
 };
 
 // Показать окно настроек пользователя
@@ -28,17 +28,17 @@ var getWizards = function (wizardsAmount) {
   var wizards = [];
   for (var i = 0; i < wizardsAmount; i++) {
     wizards.push({
-      name: getRandomArrayIndex(WIZARD_NAMES) + ' ' + getRandomArrayIndex(WIZARD_SURNAMES),
-      coatColor: getRandomArrayIndex(COAT_COLORS),
-      eyesColor: getRandomArrayIndex(EYES_COLORS)
+      name: getRandomArrayElement(WIZARD_NAMES) + ' ' + getRandomArrayElement(WIZARD_SURNAMES),
+      coatColor: getRandomArrayElement(COAT_COLORS),
+      eyesColor: getRandomArrayElement(EYES_COLORS)
     });
   }
   return wizards;
 };
 
 // Функция отрисовки магов на странице
-var renderWizard = function (wizard) {
-  var wizardElement = similarWizardTemplate.cloneNode(true);
+var renderWizard = function (wizard, template) {
+  var wizardElement = template.cloneNode(true);
 
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
   wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
@@ -52,7 +52,7 @@ var addWizards = function () {
   var wizards = getWizards(WIZARDS_AMOUNT);
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < wizards.length; i++) {
-    fragment.appendChild(renderWizard(wizards[i]));
+    fragment.appendChild(renderWizard(wizards[i], similarWizardTemplate));
   }
   similarListElement.appendChild(fragment);
 };
