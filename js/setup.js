@@ -6,19 +6,25 @@ var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var WIZARDS_AMOUNT = 4;
 
-// Функция нахождения рандомного элемента массива
-var getRandomArrayElement = function (elements) {
-  return elements[Math.floor(Math.random() * elements.length)];
-};
-
 // Переменные с окном настроек пользователя
 var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
+var setupClose = setup.querySelector('.setup-close');
 
 // Обработчик открытия окна настроек по клику
 setupOpen.addEventListener('click', function () {
   setup.classList.remove('hidden');
 });
+
+// Обработчик закрытия окна настроек по клику
+setupClose.addEventListener('click', function () {
+  setup.classList.add('hidden');
+});
+
+// Функция нахождения рандомного элемента массива
+var getRandomArrayElement = function (elements) {
+  return elements[Math.floor(Math.random() * elements.length)];
+};
 
 // Найти элемент, куда вставлять магов
 var similarListElement = document.querySelector('.setup-similar-list');
