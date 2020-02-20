@@ -11,9 +11,14 @@ var getRandomArrayElement = function (elements) {
   return elements[Math.floor(Math.random() * elements.length)];
 };
 
-// Показать окно настроек пользователя
-var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
+// Переменные с окном настроек пользователя
+var setup = document.querySelector('.setup');
+var setupOpen = document.querySelector('.setup-open');
+
+// Обработчик открытия окна настроек по клику
+setupOpen.addEventListener('click', function () {
+  setup.classList.remove('hidden');
+});
 
 // Найти элемент, куда вставлять магов
 var similarListElement = document.querySelector('.setup-similar-list');
