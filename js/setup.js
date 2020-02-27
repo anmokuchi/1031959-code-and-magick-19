@@ -22,6 +22,13 @@ setupOpen.addEventListener('click', function () {
   });
 });
 
+// Обработчик открытия окна настроек по нажатию на Enter
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    setup.classList.remove('hidden');
+  }
+});
+
 // Обработчик закрытия окна настроек по клику
 setupClose.addEventListener('click', function () {
   setup.classList.add('hidden');
