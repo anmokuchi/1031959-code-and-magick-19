@@ -11,9 +11,15 @@ var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
 
-// Обработчик открытия окна настроек по клику
+// Обработчик открытия окна настроек по клику (закрывается при нажатии Escape)
 setupOpen.addEventListener('click', function () {
   setup.classList.remove('hidden');
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+      setup.classList.add('hidden');
+    }
+  });
 });
 
 // Обработчик закрытия окна настроек по клику
