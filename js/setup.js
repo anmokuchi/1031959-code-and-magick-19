@@ -1,5 +1,8 @@
 'use strict';
 
+var ESC_KEY = 'Escape';
+var ENTER_KEY = 'Enter';
+
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb (0, 0, 0)'];
@@ -11,33 +14,46 @@ var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
 
+// Обработчик закрытия окна по нажатию на Escape
+var onPopupEscPress = function (evt) {
+  if (evt.key === ESC_KEY) {
+    closePopup();
+  }
+};
+
+// Функция открытия окна
+var openPopup = function () {
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+// Функция закрытия окна
+var closePopup = function () {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
 // Обработчик открытия окна настроек по клику (закрывается при нажатии Escape)
 setupOpen.addEventListener('click', function () {
-  setup.classList.remove('hidden');
-
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape') {
-      setup.classList.add('hidden');
-    }
-  });
+  openPopup();
 });
 
 // Обработчик открытия окна настроек по нажатию на Enter
 setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.key === 'Enter') {
-    setup.classList.remove('hidden');
+  if (evt.key === ENTER_KEY) {
+    openPopup();
   }
 });
 
 // Обработчик закрытия окна настроек по клику
 setupClose.addEventListener('click', function () {
-  setup.classList.add('hidden');
+  closePopup();
 });
 
 // Обработчик закрытия окна настроек по нажатию на Enter
 setupClose.addEventListener('keydown', function (evt) {
-  if (evt.key === 'Enter') {
-    setup.classList.add('hidden');
+  if (evt.key === ENTER_KEY) {
+    closePopup();
   }
 });
 
