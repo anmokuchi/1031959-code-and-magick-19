@@ -34,6 +34,13 @@ setupClose.addEventListener('click', function () {
   setup.classList.add('hidden');
 });
 
+// Обработчик закрытия окна настроек по нажатию на Enter
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    setup.classList.add('hidden');
+  }
+});
+
 // Функция нахождения рандомного элемента массива
 var getRandomArrayElement = function (elements) {
   return elements[Math.floor(Math.random() * elements.length)];
