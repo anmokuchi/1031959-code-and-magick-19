@@ -18,9 +18,7 @@ var userNameInput = setup.querySelector('.setup-user-name');
 
 // Обработчик закрытия окна по нажатию на Escape
 var popupEscPressHandler = function (evt) {
-  if (evt.target === userNameInput) {
-    evt.stopPropagation();
-  } else if (evt.key === ESC_KEY) {
+  if (evt.key === ESC_KEY && evt.target !== userNameInput) {
     closePopup();
   }
 };
