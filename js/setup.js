@@ -69,51 +69,38 @@ var wizardFireball = setup.querySelector('.setup-fireball-wrap');
 var wizardFireballInput = setupPlayer.querySelector('input[name="fireball-color"]');
 
 // Переменные с начальным индексом
-var coatColorIndex = 0;
-var eyesColorIndex = 0;
-var fireballColorIndex = 0;
+var coatColorIndex = COAT_COLORS.indexOf('rgb(101, 137, 164)');
+var eyesColorIndex = EYES_COLORS.indexOf('black');
+var fireballColorIndex = FIREBALL_COLORS.indexOf('#ee4830');
 
 // Функция получения следующего индекса массива
 var getNextIndex = function (index, elements) {
   return (index + 1) % elements.length;
 };
 
-// Функция изменения цвета заливки
-var changeColor = function (element, elementInput, colorIndex, colors) {
-  var newColor = colors[colorIndex];
-  element.style.fill = newColor;
-  elementInput.value = newColor;
-};
-
-// Функция изменения цвета фона
-var changeBackgroundColor = function (element, elementInput, colorIndex, colors) {
-  var newColor = colors[colorIndex];
-  element.style.background = newColor;
-  elementInput.value = newColor;
-};
-
 // Обработчик изменения цвета плаща мага
-var wizardCoatClickHandler = function () {
+wizardCoat.addEventListener('click', function () {
   coatColorIndex = getNextIndex(coatColorIndex, COAT_COLORS);
-  changeColor(wizardCoat, wizardCoatInput, coatColorIndex, COAT_COLORS);
-};
+  var nextColor = COAT_COLORS[coatColorIndex];
+  wizardCoat.style.fill = nextColor;
+  wizardCoatInput.value = nextColor;
+});
 
 // Обработчик изменения цвета глаз мага
-var wizardEyesClickHandler = function () {
+wizardEyes.addEventListener('click', function () {
   eyesColorIndex = getNextIndex(eyesColorIndex, EYES_COLORS);
-  changeColor(wizardEyes, wizardEyesInput, eyesColorIndex, EYES_COLORS);
-};
+  var nextColor = EYES_COLORS[eyesColorIndex];
+  wizardEyes.style.fill = nextColor;
+  wizardEyesInput.value = nextColor;
+});
 
 // Обработчик изменения цвета файербола
-var wizardFireballClickHandler = function () {
+wizardFireball.addEventListener('click', function () {
   fireballColorIndex = getNextIndex(fireballColorIndex, FIREBALL_COLORS);
-  changeBackgroundColor(wizardFireball, wizardFireballInput, fireballColorIndex, FIREBALL_COLORS);
-};
-
-// Применение обработчиков по клику
-wizardCoat.addEventListener('click', wizardCoatClickHandler);
-wizardEyes.addEventListener('click', wizardEyesClickHandler);
-wizardFireball.addEventListener('click', wizardFireballClickHandler);
+  var nextColor = FIREBALL_COLORS[fireballColorIndex];
+  wizardFireball.style.background = nextColor;
+  wizardFireballInput.value = nextColor;
+});
 
 // Функция нахождения рандомного элемента массива
 var getRandomArrayElement = function (elements) {
