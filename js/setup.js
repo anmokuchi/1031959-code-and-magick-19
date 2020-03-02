@@ -69,37 +69,58 @@ var wizardFireball = setup.querySelector('.setup-fireball-wrap');
 var wizardFireballInput = setupPlayer.querySelector('input[name="fireball-color"]');
 
 // Переменные с начальным индексом
-var coatColorIndex = COAT_COLORS.indexOf('rgb(101, 137, 164)');
-var eyesColorIndex = EYES_COLORS.indexOf('black');
-var fireballColorIndex = FIREBALL_COLORS.indexOf('#ee4830');
+wizardCoat.dataset.index = 0;
+wizardEyes.dataset.index = 0;
+wizardFireball.dataset.index = 0;
 
 // Функция получения следующего индекса массива
-var getNextIndex = function (index, elements) {
-  return (index + 1) % elements.length;
+var getNextIndex = function (index, length) {
+  return (+index + 1) % length;
+};
+
+// Функция изменения цвета заливки
+var changeColor = function (options) {
+  var element = options.element;
+  var elementInput = options.elementInput;
+  var colors = options.colors;
+  var bgType = options.bgType || 'fill';
+
+  var colorIndex = element.dataset.index;
+  var newColorIndex = getNextIndex(colorIndex, colors.length);
+  element.dataset.index = newColorIndex;
+
+  var newColor = colors[newColorIndex];
+
+  element.style[bgType] = newColor;
+  elementInput.value = newColor;
 };
 
 // Обработчик изменения цвета плаща мага
 wizardCoat.addEventListener('click', function () {
-  coatColorIndex = getNextIndex(coatColorIndex, COAT_COLORS);
-  var nextColor = COAT_COLORS[coatColorIndex];
-  wizardCoat.style.fill = nextColor;
-  wizardCoatInput.value = nextColor;
+  changeColor({
+    element: wizardCoat,
+    elementInput: wizardCoatInput,
+    colors: COAT_COLORS,
+  });
 });
 
 // Обработчик изменения цвета глаз мага
 wizardEyes.addEventListener('click', function () {
-  eyesColorIndex = getNextIndex(eyesColorIndex, EYES_COLORS);
-  var nextColor = EYES_COLORS[eyesColorIndex];
-  wizardEyes.style.fill = nextColor;
-  wizardEyesInput.value = nextColor;
+  changeColor({
+    element: wizardEyes,
+    elementInput: wizardEyesInput,
+    colors: EYES_COLORS,
+  });
 });
 
 // Обработчик изменения цвета файербола
 wizardFireball.addEventListener('click', function () {
-  fireballColorIndex = getNextIndex(fireballColorIndex, FIREBALL_COLORS);
-  var nextColor = FIREBALL_COLORS[fireballColorIndex];
-  wizardFireball.style.background = nextColor;
-  wizardFireballInput.value = nextColor;
+  changeColor({
+    element: wizardFireball,
+    elementInput: wizardFireballInput,
+    colors: FIREBALL_COLORS,
+    bgType: 'background',
+  });
 });
 
 // Функция нахождения рандомного элемента массива
