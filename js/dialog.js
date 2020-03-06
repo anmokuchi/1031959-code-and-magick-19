@@ -8,6 +8,16 @@
   var userNameInput = setup.querySelector('.setup-user-name');
   var dialogHandler = setup.querySelector('.upload');
 
+  // Координаты окна по умолчанию
+  var SETUP_DEFAULT_X = '';
+  var SETUP_DEFAULT_Y = '';
+
+  // Функция присваивания диалоговому окну координат по умолчанию
+  var setDefaultSetupCoordinates = function () {
+    setup.style.top = SETUP_DEFAULT_X;
+    setup.style.left = SETUP_DEFAULT_Y;
+  };
+
   // Обработчик закрытия окна по нажатию на Escape
   var popupEscPressHandler = function (evt) {
     window.util.isEscEventTargetExclude(evt, userNameInput, closePopup);
@@ -15,6 +25,7 @@
 
   // Функция открытия окна
   var openPopup = function () {
+    setDefaultSetupCoordinates();
     setup.classList.remove('hidden');
     document.addEventListener('keydown', popupEscPressHandler);
   };
