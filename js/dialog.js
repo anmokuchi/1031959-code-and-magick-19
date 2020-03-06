@@ -6,7 +6,7 @@
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = setup.querySelector('.setup-close');
   var userNameInput = setup.querySelector('.setup-user-name');
-  var dialogHandle = setup.querySelector('.upload');
+  var dialogHandler = setup.querySelector('.upload');
 
   // Обработчик закрытия окна по нажатию на Escape
   var popupEscPressHandler = function (evt) {
@@ -46,7 +46,7 @@
   });
 
   // Обработчик перетаскивания диалогового окна
-  dialogHandle.addEventListener('mousedown', function (evt) {
+  dialogHandler.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -54,8 +54,11 @@
       y: evt.clientY
     };
 
+    var dragged = false;
+
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
+      dragged = true;
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -76,6 +79,14 @@
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
+
+      if (dragged) {
+        var onClickPreventDefault = function (clickEvt) {
+          clickEvt.preventDefault();
+          dialogHandler.removeEventListener('click', onClickPreventDefault)
+        };
+        dialogHandler.addEventListener('click', onClickPreventDefault);
+      }
     };
 
     document.addEventListener('mousemove', onMouseMove);
