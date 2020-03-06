@@ -36,12 +36,12 @@ var getMaxElement = function (arr) {
 
 window.renderStatistics = function (ctx, names, times) {
   renderCloud(
-      ctx,
-      cloud.positionX + this.cloud.indent,
-      cloud.positionY + this.cloud.indent,
-      cloud.width,
-      cloud.height,
-      'rgba(0, 0, 0, 0.7)'
+    ctx,
+    cloud.positionX + this.cloud.indent,
+    cloud.positionY + this.cloud.indent,
+    cloud.width,
+    cloud.height,
+    'rgba(0, 0, 0, 0.7)'
   );
   renderCloud(ctx, cloud.positionX, cloud.positionY, cloud.width, cloud.height, '#fff');
 

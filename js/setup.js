@@ -1,8 +1,5 @@
 'use strict';
 
-var ESC_KEY = 'Escape';
-var ENTER_KEY = 'Enter';
-
 var WIZARDS_AMOUNT = 4;
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
@@ -17,10 +14,8 @@ var setupClose = setup.querySelector('.setup-close');
 var userNameInput = setup.querySelector('.setup-user-name');
 
 // Обработчик закрытия окна по нажатию на Escape
-var popupEscPressHandler = function (evt) {
-  if (evt.key === ESC_KEY && evt.target !== userNameInput) {
-    closePopup();
-  }
+var popupEscPressHandler = function(evt) {
+  window.util.isEscEventTargetExclude(evt, userNameInput, closePopup);
 };
 
 // Функция открытия окна
@@ -42,9 +37,7 @@ setupOpen.addEventListener('click', function () {
 
 // Обработчик открытия окна настроек по нажатию на Enter
 setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.key === ENTER_KEY) {
-    openPopup();
-  }
+  window.util.isEnterEvent(evt, openPopup);
 });
 
 // Обработчик закрытия окна настроек по клику
@@ -54,9 +47,7 @@ setupClose.addEventListener('click', function () {
 
 // Обработчик закрытия окна настроек по нажатию на Enter
 setupClose.addEventListener('keydown', function (evt) {
-  if (evt.key === ENTER_KEY) {
-    closePopup();
-  }
+  window.util.isEnterEvent(evt, closePopup);
 });
 
 // Переменные с настройками цвета персонажа
@@ -73,11 +64,6 @@ wizardCoat.dataset.index = 0;
 wizardEyes.dataset.index = 0;
 wizardFireball.dataset.index = 0;
 
-// Функция получения следующего индекса массива
-var getNextIndex = function (index, length) {
-  return (+index + 1) % length;
-};
-
 // Функция изменения цвета заливки
 var changeColor = function (options) {
   var element = options.element;
@@ -86,7 +72,7 @@ var changeColor = function (options) {
   var bgType = options.bgType || 'fill';
 
   var colorIndex = element.dataset.index;
-  var newColorIndex = getNextIndex(colorIndex, colors.length);
+  var newColorIndex = window.util.nextIndex(colorIndex, colors.length);
   element.dataset.index = newColorIndex;
 
   var newColor = colors[newColorIndex];
@@ -123,11 +109,6 @@ wizardFireball.addEventListener('click', function () {
   });
 });
 
-// Функция нахождения рандомного элемента массива
-var getRandomArrayElement = function (elements) {
-  return elements[Math.floor(Math.random() * elements.length)];
-};
-
 // Найти элемент, куда вставлять магов
 var similarListElement = document.querySelector('.setup-similar-list');
 
@@ -141,9 +122,9 @@ var getWizards = function (wizardsAmount) {
   var wizards = [];
   for (var i = 0; i < wizardsAmount; i++) {
     wizards.push({
-      name: getRandomArrayElement(WIZARD_NAMES) + ' ' + getRandomArrayElement(WIZARD_SURNAMES),
-      coatColor: getRandomArrayElement(COAT_COLORS),
-      eyesColor: getRandomArrayElement(EYES_COLORS)
+      name: window.util.randomArrayElement(WIZARD_NAMES) + ' ' + window.util.randomArrayElement(WIZARD_SURNAMES),
+      coatColor: window.util.randomArrayElement(COAT_COLORS),
+      eyesColor: window.util.randomArrayElement(EYES_COLORS)
     });
   }
   return wizards;
