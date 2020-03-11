@@ -14,6 +14,7 @@
   var wizardEyesInput = setupPlayer.querySelector('input[name="eyes-color"]');
   var wizardFireball = setup.querySelector('.setup-fireball-wrap');
   var wizardFireballInput = setupPlayer.querySelector('input[name="fireball-color"]');
+  var form = setup.querySelector('.setup-wizard-form');
 
   // Переменные с начальным индексом
   wizardCoat.dataset.index = 0;
@@ -63,5 +64,13 @@
       colors: FIREBALL_COLORS,
       bgType: 'background',
     });
+  });
+
+  // Обработчик отправки данных
+  form.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(form), function () {
+      setup.classList.add('hidden');
+    }, /* тут стиль окна с ошибкой */);
+    evt.preventDefault();
   });
 })();

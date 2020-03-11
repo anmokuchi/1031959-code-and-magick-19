@@ -19,7 +19,7 @@
   };
 
   // Обработчик закрытия окна по нажатию на Escape
-  var popupEscPressHandler = function (evt) {
+  var onPopupEscPress = function (evt) {
     window.util.isEscEventTargetExclude(evt, userNameInput, closePopup);
   };
 
@@ -27,13 +27,13 @@
   var openPopup = function () {
     setDefaultSetupCoordinates();
     setup.classList.remove('hidden');
-    document.addEventListener('keydown', popupEscPressHandler);
+    document.addEventListener('keydown', onPopupEscPress);
   };
 
   // Функция закрытия окна
   var closePopup = function () {
     setup.classList.add('hidden');
-    document.removeEventListener('keydown', popupEscPressHandler);
+    document.removeEventListener('keydown', onPopupEscPress);
   };
 
   // Обработчик открытия окна настроек по клику (закрывается при нажатии Escape)
