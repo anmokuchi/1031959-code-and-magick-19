@@ -4,21 +4,19 @@
   var LOAD_URL = 'https://js.dump.academy/code-and-magick/data';
   var SAVE_URL = 'https://js.dump.academy/code-and-magick';
 
-  var statusCode = {
+  var StatusCode = {
     OK: 200
   };
 
   var TIMEOUT_IN_MS = 10000; // 10 s;
 
-  // Функция загрузки данных волшебников с сервера
-  var load = function (onLoad, onError) {
+  var getXhrSetup = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-
-    xhr.open('GET', LOAD_URL);
+    xhr.timeout = TIMEOUT_IN_MS;
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === statusCode.OK) {
+      if (xhr.status === StatusCode.OK) {
         onLoad(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -33,40 +31,25 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = TIMEOUT_IN_MS;
+    return xhr;
+  };
 
+  // Функция загрузки данных волшебников с сервера
+  var downloadData = function (onLoad, onError) {
+    var xhr = getXhrSetup(onLoad, onError);
+    xhr.open('GET', LOAD_URL);
     xhr.send();
   };
 
   // Функция загрузки данных о персонаже на сервер
-  var save = function (data, onLoad, onError) {
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-
-    xhr.addEventListener('load', function () {
-      if (xhr.status === statusCode.OK) {
-        onLoad(xhr.response);
-      } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
-      }
-    });
-
-    xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
-    });
-
-    xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-    });
-
-    xhr.timeout = TIMEOUT_IN_MS;
-
+  var uploadForm = function (data, onLoad, onError) {
+    var xhr = getXhrSetup(onLoad, onError);
     xhr.open('POST', SAVE_URL);
     xhr.send(data);
   };
 
   window.backend = {
-    load: load,
-    save: save,
+    load: downloadData,
+    save: uploadForm,
   };
 })();
