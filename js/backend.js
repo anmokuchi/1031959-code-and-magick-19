@@ -8,12 +8,15 @@
     OK: 200
   };
 
+  var RESPONSE_TYPE = 'json';
   var TIMEOUT_IN_MS = 10000; // 10 s;
 
-  var getXhrSetup = function (onLoad, onError) {
+  var sendRequest = function (options, onLoad, onError) {
     var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-    xhr.timeout = TIMEOUT_IN_MS;
+    xhr.responseType = options.responseType || RESPONSE_TYPE;
+    xhr.timeout = options.timeout > 0 ? options.timeout : TIMEOUT_IN_MS;
+    xhr.open(options.method, options.url);
+    xhr.send(options.data);
 
     xhr.addEventListener('load', function () {
       if (xhr.status === StatusCode.OK) {
@@ -30,26 +33,21 @@
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
-
-    return xhr;
-  };
-
-  // Функция загрузки данных волшебников с сервера
-  var downloadData = function (onLoad, onError) {
-    var xhr = getXhrSetup(onLoad, onError);
-    xhr.open('GET', LOAD_URL);
-    xhr.send();
-  };
-
-  // Функция загрузки данных о персонаже на сервер
-  var uploadForm = function (data, onLoad, onError) {
-    var xhr = getXhrSetup(onLoad, onError);
-    xhr.open('POST', SAVE_URL);
-    xhr.send(data);
   };
 
   window.backend = {
-    load: downloadData,
-    save: uploadForm,
+    load: function (onLoad, onError) {
+      sendRequest({
+        method: 'GET',
+        url: LOAD_URL,
+      }, onLoad, onError);
+    },
+    save: function (data, onLoad, onError) {
+      sendRequest({
+        method: 'POST',
+        url: SAVE_URL,
+        data: data,
+      }, onLoad, onError);
+    },
   };
 })();
